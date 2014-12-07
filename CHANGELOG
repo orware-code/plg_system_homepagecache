@@ -11,13 +11,14 @@ Legend:
 - -> Removed
 ! -> Note
 
-2.6.5 2014-03-01 / Omar Ramos
+2.6.5 2014-12-06 / Omar Ramos
 + Added the ability to allow wildcards to be used in the specified URLs to Cache.
-+ Added the ability to have per-browser (USER AGENT) caching. The regular "Use Browser Caching" option doesn't do this exactly (it actually relies on the 304 HTTP Status Code to indicate an unmodified status, but doesn't actually allow for a different cache file to be created for that browser...since some templates actually create different output depending on the browser, this may actually be useful for some people.
++ (Joomla 3 only at the moment) Added the ability to have per-browser (USER AGENT) caching. The regular "Use Browser Caching" option doesn't do this exactly (it actually relies on the 304 HTTP Status Code to indicate an unmodified status, but doesn't actually allow for a different cache file to be created for that browser...since some templates actually create different output depending on the browser, this may actually be useful for some people.
 ! Added some additional processing to remove the "index.php/" string from a user-provided URL (this helps make any user provided URLs that contain that particular string continue to work even after modifying the global configuration setting)
+# Not 100% sure if this is a bug yet or not, but I did notice some weird behavior in Joomla 3 (after caching the homepage, a subpage wasn't being cached correctly...instead the cached version of the homepage would show up for that subpage which wasn't correct). However, with the customizations I made to add the per-browser (USER AGENT) caching above, I was able to fix things a bit within Joomla 3 (Joomla 2.5 should retain it's default behavior at this time). After taking a closer look at this in Joomla 2.5 it does appear some older behavior was cleaned out in Joomla 3 which changed things. The way I've worked around it should be ok (though as mentioned in the comments in the Joomla 2.5 code...the actual approach used may not be the most safe, since unnecessary cache files can be created just by a user adding gibberish to your URLs).
 
-2.5.1 2014-02-15 / Omar Ramos
+2.5.1 2013-03-21 / Omar Ramos
 + Added custom cache lifetime option
 
-2.5.0 2013-11-29 / Omar Ramos
+2.5.0 2013-03-18 / Omar Ramos
 ! Initial version.

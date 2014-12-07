@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="system" method="upgrade">
+	<name>plg_system_homepagecache</name>
+	<author>Omar Ramos</author>
+	<creationDate>January 2013</creationDate>
+	<copyright>Copyright (C) 2013 Omar Ramos. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>orware@gmail.com</authorEmail>
+	<authorUrl>www.orware.com</authorUrl>
+	<version>2.5.1</version>
+	<description>PLG_SYSTEM_HOMEPAGECACHE_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="homepagecache">homepagecache.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_system_homepagecache.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_homepagecache.sys.ini</language>
+	</languages>
+	<config>
+	<fields name="params">
+		<fieldset name="caching" label="PLG_SYSTEM_HOMEPAGECACHE_FIELD_GROUP_CACHINGOPTIONS_LABEL">
+			<field name="use_custom_cache_lifetime" type="radio" default="0" label="PLG_SYSTEM_HOMEPAGECACHE_FIELD_USE_CUSTOM_CACHE_LIFETIME_LABEL" description="PLG_SYSTEM_HOMEPAGECACHE_FIELD_USE_CUSTOM_CACHE_LIFETIME_DESC">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</field>
+			<field name="cache_lifetime" type="text" default="15" label="PLG_SYSTEM_HOMEPAGECACHE_FIELD_CACHE_LIFETIME_LABEL" description="PLG_SYSTEM_HOMEPAGECACHE_FIELD_CACHE_LIFETIME_DESC" />
+
+			<field name="homepagecachespacer1" type="spacer" hr="true" />
+
+			<field	name="browsercache" type="radio"
+				default="0"
+				description="PLG_SYSTEM_HOMEPAGECACHE_FIELD_BROWSERCACHE_DESC"
+				label="PLG_SYSTEM_HOMEPAGECACHE_FIELD_BROWSERCACHE_LABEL"
+			>
+				<option
+					value="0">JNo</option>
+				<option
+					value="1">JYes</option>
+			</field>
+
+			<field name="homepagecachespacer2" type="spacer" hr="true" />
+
+			<field	name="homepagecache" type="radio"
+				default="1"
+				description="PLG_SYSTEM_HOMEPAGECACHE_FIELD_HOMEPAGECACHE_DESC"
+				label="PLG_SYSTEM_HOMEPAGECACHE_FIELD_HOMEPAGECACHE_LABEL"
+			>
+				<option
+					value="0">JNo</option>
+				<option
+					value="1">JYes</option>
+			</field>
+
+			<field name="homepagecachespacer3" type="spacer" hr="true" />
+
+			<field	name="priority_one_cache_switch" type="radio"
+				default="1"
+				description="PLG_SYSTEM_HOMEPAGECACHE_FIELD_PRIORITY_ONE_CACHE_SWITCH_DESC"
+				label="PLG_SYSTEM_HOMEPAGECACHE_FIELD_PRIORITY_ONE_CACHE_SWITCH_LABEL"
+			>
+				<option
+					value="0">JNo</option>
+				<option
+					value="1">JYes</option>
+			</field>
+			<field name="priority_one_cache" type="textarea"
+				cols="30"
+				default=""
+				description="PLG_SYSTEM_HOMEPAGECACHE_FIELD_PRIORITY_ONE_CACHE_DESC"
+				label="PLG_SYSTEM_HOMEPAGECACHE_FIELD_PRIORITY_ONE_CACHE_LABEL"
+				rows="10"
+			/>
+
+			<field name="homepagecachespacer4" type="spacer" hr="true" />
+
+			<field	name="priority_two_cache_switch" type="radio"
+				default="1"
+				description="PLG_SYSTEM_HOMEPAGECACHE_FIELD_PRIORITY_TWO_CACHE_SWITCH_DESC"
+				label="PLG_SYSTEM_HOMEPAGECACHE_FIELD_PRIORITY_TWO_CACHE_SWITCH_LABEL"
+			>
+				<option
+					value="0">JNo</option>
+				<option
+					value="1">JYes</option>
+			</field>
+			<field name="priority_two_cache" type="textarea"
+				cols="30"
+				default=""
+				description="PLG_SYSTEM_HOMEPAGECACHE_FIELD_PRIORITY_TWO_CACHE_DESC"
+				label="PLG_SYSTEM_HOMEPAGECACHE_FIELD_PRIORITY_TWO_CACHE_LABEL"
+				rows="10"
+			/>
+
+			<field name="homepagecachespacer5" type="spacer" hr="true" />
+
+			<field	name="priority_three_cache_switch" type="radio"
+				default="1"
+				description="PLG_SYSTEM_HOMEPAGECACHE_FIELD_PRIORITY_THREE_CACHE_SWITCH_DESC"
+				label="PLG_SYSTEM_HOMEPAGECACHE_FIELD_PRIORITY_THREE_CACHE_SWITCH_LABEL"
+			>
+				<option
+					value="0">JNo</option>
+				<option
+					value="1">JYes</option>
+			</field>
+			<field name="priority_three_cache" type="textarea"
+				cols="30"
+				default=""
+				description="PLG_SYSTEM_HOMEPAGECACHE_FIELD_PRIORITY_THREE_CACHE_DESC"
+				label="PLG_SYSTEM_HOMEPAGECACHE_FIELD_PRIORITY_THREE_CACHE_LABEL"
+				rows="10"
+			/>
+		</fieldset>
+	</fields>
+	</config>
+</extension>

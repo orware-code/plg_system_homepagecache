@@ -7,7 +7,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>orware@gmail.com</authorEmail>
 	<authorUrl>www.orware.com</authorUrl>
-	<version>2.5.1</version>
+	<version>2.5.2</version>
 	<description>PLG_SYSTEM_HOMEPAGECACHE_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="homepagecache">homepagecache.php</filename>
@@ -38,6 +38,28 @@
 				<option
 					value="1">JYes</option>
 			</field>
+
+            <field    name="perbrowsercache" type="radio"
+                default="0"
+                description="PLG_SYSTEM_HOMEPAGECACHE_FIELD_PERBROWSERCACHE_DESC"
+                label="PLG_SYSTEM_HOMEPAGECACHE_FIELD_PERBROWSERCACHE_LABEL"
+            >
+                <option
+                    value="0">JNo</option>
+                <option
+                    value="1">JYes</option>
+            </field>
+
+            <field    name="allow_wildcards" type="radio"
+                default="0"
+                description="PLG_SYSTEM_HOMEPAGECACHE_FIELD_ALLOW_WILDCARDS_DESC"
+                label="PLG_SYSTEM_HOMEPAGECACHE_FIELD_ALLOW_WILDCARDS_LABEL"
+            >
+                <option
+                    value="0">JNo</option>
+                <option
+                    value="1">JYes</option>
+            </field>
 
 			<field name="homepagecachespacer2" type="spacer" hr="true" />
 

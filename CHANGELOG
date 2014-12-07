@@ -1,0 +1,23 @@
+plg_system_homepagecache
+Version: 2.5.2
+Copyright (C) 2013-2014 Omar Ramos, orware networks. All rights reserved.
+License GNU/GPL, see LICENSE.php
+
+Legend:
+
+# -> Bug Fix
++ -> Addition
+! -> Change
+- -> Removed
+! -> Note
+
+2.6.5 2014-03-01 / Omar Ramos
++ Added the ability to allow wildcards to be used in the specified URLs to Cache.
++ Added the ability to have per-browser (USER AGENT) caching. The regular "Use Browser Caching" option doesn't do this exactly (it actually relies on the 304 HTTP Status Code to indicate an unmodified status, but doesn't actually allow for a different cache file to be created for that browser...since some templates actually create different output depending on the browser, this may actually be useful for some people.
+! Added some additional processing to remove the "index.php/" string from a user-provided URL (this helps make any user provided URLs that contain that particular string continue to work even after modifying the global configuration setting)
+
+2.5.1 2014-02-15 / Omar Ramos
++ Added custom cache lifetime option
+
+2.5.0 2013-11-29 / Omar Ramos
+! Initial version.

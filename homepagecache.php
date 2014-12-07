@@ -26,7 +26,7 @@ class plgSystemHomepageCache extends JPlugin
 	 * @param	array	$config  An array that holds the plugin configuration
 	 * @since	1.0
 	 */
-	function __construct(& $subject, $config)
+	public function __construct(& $subject, $config)
 	{
 		parent::__construct($subject, $config);
 
@@ -45,7 +45,7 @@ class plgSystemHomepageCache extends JPlugin
 	* Converting the site URL to fit to the HTTP request
 	*
 	*/
-	function onAfterInitialise()
+	public function onAfterInitialise()
 	{
 		global $_PROFILER;
 		$app	= JFactory::getApplication();
@@ -74,7 +74,18 @@ class plgSystemHomepageCache extends JPlugin
 				$this->_cache->setLifeTime((int) $this->params->get('cache_lifetime', 15));
 			}
 
-			$data  = $this->_cache->get();
+            // Retrieve the Data from the Cache:
+            $version = new JVersion;
+
+            // Check the Joomla Version and Execute the appropriate code:
+            if ($version->isCompatible('3.0'))
+            {
+                $data  = $this->_cache->get($this->createId());
+            }
+            else
+            {
+                $data  = $this->_cache->get();
+            }
 
 			if ($data !== false)
 			{
@@ -93,7 +104,7 @@ class plgSystemHomepageCache extends JPlugin
 		}
 	}
 
-	function onAfterRender()
+	public function onAfterRender()
 	{
 		$app = JFactory::getApplication();
 
@@ -114,10 +125,43 @@ class plgSystemHomepageCache extends JPlugin
 			if ($user->get('guest'))
 			{
 				//We need to check again here, because auto-login plugins have not been fired before the first aid check
-				$this->_cache->store();
+                $version = new JVersion;
+
+                // Check the Joomla Version and Execute the appropriate code:
+                if ($version->isCompatible('3.0'))
+                {
+				    $this->_cache->store(null, $this->createId());
+                }
+                else
+                {
+                    $this->_cache->store();
+                }
 			}
 		}
 	}
+
+    protected function createId($uri = null)
+    {
+        if (empty($uri))
+        {
+            $uri = JFactory::getURI()->toString();
+        }
+
+        $uriSchemeHostPortPathParts = JFactory::getURI()->getScheme() . '://' . JFactory::getURI()->getHost() . JFactory::getURI()->getPort() . JFactory::getURI()->base(true);
+        $relativeUriPathToCompare = str_replace($uriSchemeHostPortPathParts, '', $uri);
+
+
+        if ($this->params->get('perbrowsercache', 0))
+        {
+            $id = md5($_SERVER['HTTP_USER_AGENT'] . $relativeUriPathToCompare);
+        }
+        else
+        {
+            $id = md5($relativeUriPathToCompare);
+        }
+
+        return $id;
+    }
 
 	protected function isCacheable($uri = '')
 	{
@@ -128,6 +172,7 @@ class plgSystemHomepageCache extends JPlugin
 
 		$uriSchemeHostPortPathParts = JFactory::getURI()->getScheme() . '://' . JFactory::getURI()->getHost() . JFactory::getURI()->getPort() . JFactory::getURI()->base(true);
 		$relativeUriPathToCompare = str_replace($uriSchemeHostPortPathParts, '', $uri);
+        $relativeUriPathToCompare = str_replace('index.php/', '', $relativeUriPathToCompare);
 
 		$allowedRelativeUriPaths = array();
 		if ($this->params->get('homepagecache', 1))
@@ -150,6 +195,7 @@ class plgSystemHomepageCache extends JPlugin
 				foreach($priorityOneUris as $priorityOneUri)
 				{
 					$priorityOneUri = JString::trim($priorityOneUri);
+                    $priorityOneUri = str_replace('index.php/', '', $priorityOneUri);
 					$priorityOneUri = JString::ltrim($priorityOneUri, '/');
 					$priorityOneUri = JString::rtrim($priorityOneUri, '/');
 					$allowedRelativeUriPaths[] = $priorityOneUri;
@@ -170,6 +216,7 @@ class plgSystemHomepageCache extends JPlugin
 				foreach($priorityTwoUris as $priorityTwoUri)
 				{
 					$priorityTwoUri = JString::trim($priorityTwoUri);
+                    $priorityTwoUri = str_replace('index.php/', '', $priorityTwoUri);
 					$priorityTwoUri = JString::ltrim($priorityTwoUri, '/');
 					$priorityTwoUri = JString::rtrim($priorityTwoUri, '/');
 					$allowedRelativeUriPaths[] = $priorityTwoUri;
@@ -189,6 +236,7 @@ class plgSystemHomepageCache extends JPlugin
 				foreach($priorityThreeUris as $priorityThreeUri)
 				{
 					$priorityThreeUri = JString::trim($priorityThreeUri);
+                    $priorityThreeUri = str_replace('index.php/', '', $priorityThreeUri);
 					$priorityThreeUri = JString::ltrim($priorityThreeUri, '/');
 					$priorityThreeUri = JString::rtrim($priorityThreeUri, '/');
 					$allowedRelativeUriPaths[] = $priorityThreeUri;
@@ -199,6 +247,25 @@ class plgSystemHomepageCache extends JPlugin
 		$relativeUriPathToCompare = JString::ltrim($relativeUriPathToCompare, '/');
 		$relativeUriPathToCompare = JString::rtrim($relativeUriPathToCompare, '/');
 		$result = in_array($relativeUriPathToCompare, $allowedRelativeUriPaths);
+
+        if (!$result)
+        {
+            if ($this->params->get('allow_wildcards', 0))
+            {
+                foreach($allowedRelativeUriPaths as $allowedRelativeUriPath)
+                {
+                    $wildcardResult = fnmatch($allowedRelativeUriPath, $relativeUriPathToCompare);
+
+                    if ($wildcardResult)
+                    {
+                        $result = $wildcardResult;
+                        break;
+                    }
+                }
+            }
+
+        }
+
 		return $result;
 	}
 }
